@@ -1,0 +1,9 @@
+<%@page import="web.DbListener"%>
+<%@ page pageEncoding="UTF-8" %>
+<%if(DbListener.exceptionMessage != null){%>
+<div style="background-color: red; color: white">
+    <%= DbListener.exceptionMessage %>
+</div>
+<%}%>
+
+<hr/>
