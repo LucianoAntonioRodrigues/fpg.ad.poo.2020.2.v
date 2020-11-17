@@ -33,13 +33,13 @@ public class DbListener implements ServletContextListener {
         try{
             Class.forName(CLASS_NAME);
             con = DriverManager.getConnection(URL);
-            statusMessage = "Conectou";
+            statusMessage = "Conectou em "+new java.util.Date()+"<br/>";
             stmt = con.createStatement();
-            statusMessage += "; criando tabela 'usuarios'...";
+            statusMessage += "Criando tabela 'usuarios' em "+new java.util.Date()+"...<br/>";
             stmt.execute(Usuario.getCreateStatement());
-            statusMessage += "; tabela 'usuarios' criada";
+            statusMessage += "Tabela 'usuarios' criada em "+new java.util.Date()+"<br/>";
             if(Usuario.getList().isEmpty()){
-                statusMessage += "; tabela vazia, criando usuários...";
+                statusMessage += "Tabela vazia, criando usuários em "+new java.util.Date()+"<br/>";
                 stmt.execute("INSERT INTO usuarios "
                 + "VALUES('admin', 'Administrador', 'ADMINISTRADOR', "+"1234".hashCode()+")");
                 statusMessage += "; usuário 'admin' criado";
@@ -49,9 +49,9 @@ public class DbListener implements ServletContextListener {
             }
             
             //TODO: criar as tabelas categorias e transações
-            statusMessage += "; Desconectou";
+            statusMessage += "Desconectou em "+new java.util.Date()+"<br/>";
         }catch(Exception ex){
-            statusMessage += "; Ocorreu exceção";
+            statusMessage += "Ocorreu exceção em "+new java.util.Date()+"<br/>";
             exceptionMessage = ex.getLocalizedMessage();
         }finally{
             try{stmt.close();}catch(Exception ex2){}

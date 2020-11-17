@@ -15,13 +15,7 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
-        <h1>FINANCY$</h1>
-        <h2>Status da base de dados:</h2>
-        <div><%= DbListener.statusMessage %></div>
-        <hr/>
-        <h2>Usuários</h2>
-        <%for(Usuario u: Usuario.getList()){%>
-        <div><%= u.getNome() %></div>
-        <%}%>
+        <h2>Página inicial</h2>
+        <div>Em desenvolvimento...</div>
     </body>
 </html>

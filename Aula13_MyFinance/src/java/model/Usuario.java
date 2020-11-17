@@ -9,6 +9,28 @@ public class Usuario {
     private String nome;
     private String papel;
     
+    public static Usuario getUser(String login, String password) throws Exception{
+        Usuario user = null;
+        Connection con = DbListener.getConnection();
+        //Para evitar o SQL injection, usa-se o PreparedStatement
+        PreparedStatement stmt = con.prepareStatement
+        ("SELECT * FROM usuarios WHERE login = ? AND password_hash = ?");
+        stmt.setString(1, login);
+        stmt.setLong(2, password.hashCode());
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()){
+            user = new Usuario(
+                    rs.getString("login"),
+                    rs.getString("nome"),
+                    rs.getString("role")
+            );
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return user;
+    }
+    
     public static ArrayList<Usuario> getList() throws Exception{
         ArrayList<Usuario> list = new ArrayList<>();
         Connection con = DbListener.getConnection();
