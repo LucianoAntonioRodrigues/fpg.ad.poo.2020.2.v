@@ -8,6 +8,8 @@ package web;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.sql.*;
+import model.Categoria;
+import model.Transacao;
 import model.Usuario;
 
 /**
@@ -36,6 +38,7 @@ public class DbListener implements ServletContextListener {
             statusMessage = "Conectou em "+new java.util.Date()+"<br/>";
             stmt = con.createStatement();
             statusMessage += "Criando tabela 'usuarios' em "+new java.util.Date()+"...<br/>";
+            //TABELA usuarios
             stmt.execute(Usuario.getCreateStatement());
             statusMessage += "Tabela 'usuarios' criada em "+new java.util.Date()+"<br/>";
             if(Usuario.getList().isEmpty()){
@@ -47,6 +50,15 @@ public class DbListener implements ServletContextListener {
                 + "VALUES('fulano', 'Fulano da Silva', 'USUÁRIO', "+"1234".hashCode()+")");
                 statusMessage += "; usuário 'fulano' criado";
             }
+            //TABELA categorias
+            statusMessage += "Criando tabela 'categorias' em "+new java.util.Date()+"...<br/>";
+            stmt.execute(Categoria.getCreateStatement());
+            statusMessage += "Tabela 'categorias' criada em "+new java.util.Date()+"<br/>";
+            
+            //TABELA transacoes
+            statusMessage += "Criando tabela 'transacoes' em "+new java.util.Date()+"...<br/>";
+            stmt.execute(Transacao.getCreateStatement());
+            statusMessage += "Tabela 'transacoes' criada em "+new java.util.Date()+"<br/>";
             
             //TODO: criar as tabelas categorias e transações
             statusMessage += "Desconectou em "+new java.util.Date()+"<br/>";

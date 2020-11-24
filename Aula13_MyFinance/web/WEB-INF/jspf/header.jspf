@@ -1,6 +1,6 @@
 <%@page import="web.DbListener"%>
 <%@page import="model.Usuario"%>
-<%@ page pageEncoding="UTF-8" %>
+<%@ page pageEncoding="ISO-8859-1" %>
 <%if(DbListener.exceptionMessage != null){%>
 <div style="background-color: red; color: white">
     <%= DbListener.exceptionMessage %>
@@ -15,7 +15,7 @@
         try{
             Usuario u = Usuario.getUser(login, password);
             if(u==null){
-                requestErrorMessage = "Login e/ou senha inv√°lido(s)";
+                requestErrorMessage = "Login e/ou senha inv·lido(s)";
             }else{
                 session.setAttribute("session.login", u.getLogin());
                 session.setAttribute("session.nome", u.getNome());
@@ -48,5 +48,13 @@
         Logado como <b><%= session.getAttribute("session.nome") %></b>
         <input type="submit" name="logoutForm" value="Sair"/>
     </form>
+    <hr/>
+    <a href="<%=request.getContextPath()%>/index.jsp">HOME</a>
+    | <a href="<%=request.getContextPath()%>/perfil.jsp">MEU PERFIL</a>
+    <%if(session.getAttribute("session.papel").equals("ADMINISTRADOR")){%>
+        | <a href="<%=request.getContextPath()%>/admin.jsp">ADMIN</a>
+    <%}%>
+    || <a href="<%=request.getContextPath()%>/categorias.jsp">CATEGORIAS</a>
+    | <a href="<%=request.getContextPath()%>/transacoes.jsp">TRANSACORES</a>
 <%}%>
 <hr/>

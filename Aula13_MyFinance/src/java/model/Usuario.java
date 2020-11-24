@@ -31,6 +31,19 @@ public class Usuario {
         return user;
     }
     
+    
+    public static void changePassword(String login, String newPassword) throws Exception{
+        Connection con = DbListener.getConnection();
+        //Para evitar o SQL injection, usa-se o PreparedStatement
+        PreparedStatement stmt = con.prepareStatement
+        ("UPDATE usuarios SET password_hash = ? WHERE login = ?");
+        stmt.setLong(1, newPassword.hashCode());
+        stmt.setString(2, login);
+        stmt.execute();
+        stmt.close();
+        con.close();
+    }
+    
     public static ArrayList<Usuario> getList() throws Exception{
         ArrayList<Usuario> list = new ArrayList<>();
         Connection con = DbListener.getConnection();
